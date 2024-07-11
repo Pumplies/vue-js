@@ -6,7 +6,6 @@ import BlockOne from './components/BlockOneComponent.vue'
 import Drawer from './components/DrawerComponent.vue'
 import AllCrosiHeader from './components/AllCrosiHeader.vue'
 import axios from 'axios'
-import SortComponent from './components/AllCrosiHeader.vue'
 
 const isDrawerVisible = ref(false)
 
@@ -18,7 +17,7 @@ const items = ref([])
 const sortBy = ref('')
 onMounted(async () => {
   try {
-    const { data } = await axios.get('https://269b3b45e08bcd1a.mokky.dev/items')
+    const { data } = await axios.get('http://localhost:3000/api/items')
     items.value = data
   } catch (error) {
     console.log(error)
@@ -27,7 +26,7 @@ onMounted(async () => {
 
 watch(sortBy, async () => {
   try {
-    const { data } = await axios.get('https://269b3b45e08bcd1a.mokky.dev/items?sortBy=' + sortBy.value)
+    const { data } = await axios.get(`http://localhost:3000/api/items?sortBy=${sortBy.value}`)
     items.value = data
   } catch (error) {
     console.log(error)
@@ -45,7 +44,7 @@ const onChangeSelect = (e) => {
     <Header :toggleDrawer="toggleDrawer" />
     <div class="pl-10 pr-10">
       <BlockOne />
-      <AllCrosiHeader :onchange="onChangeSelect"/>
+      <AllCrosiHeader :onchange="onChangeSelect" />
       <Cards :items="items" />
     </div>
   </div>
