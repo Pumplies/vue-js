@@ -36,6 +36,17 @@ watch(sortBy, async () => {
 const onChangeSelect = (e) => {
   sortBy.value = e.target.value
 }
+
+const updateFavoriteStatus = async (item) => {
+  try {
+    const updatedItem = { ...item, isFavorite: !item.isFavorite }
+    await axios.put(`http://localhost:3000/api/items/${item._id}`, updatedItem)
+    const { data } = await axios.get('http://localhost:3000/api/items')
+    items.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>
@@ -45,7 +56,7 @@ const onChangeSelect = (e) => {
     <div class="pl-10 pr-10">
       <BlockOne />
       <AllCrosiHeader :onchange="onChangeSelect" />
-      <Cards :items="items" />
+      <Cards :items="items" :onUpdateFavorite="updateFavoriteStatus" />
     </div>
   </div>
 </template>

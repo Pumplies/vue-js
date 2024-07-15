@@ -2,30 +2,19 @@
   <div class="p-10 grid grid-cols-4 gap-5">
     <Cards
       v-for="item in items"
-      :key="item.id"
-      :image="item.imageUrl"
-      :name="item.title"
-      :price="item.price"
-      :isAdded="false"
-      :isFavorite="false"
-      :onClickAdd="onClickAdd"
+      :key="item._id"
+      :item="item"
+      :onUpdateFavorite="onUpdateFavorite"
     />
-    
   </div>
 </template>
 
 <script setup>
 import Cards from './AllCrosiComponent.vue'
 defineProps({
-  items: Array
+  items: Array,
+  onUpdateFavorite: Function
 })
-
-const onClickAdd = () => {
-  alert('Добавил')
-}
-
-
-
 </script>
 
 <style scoped></style>
